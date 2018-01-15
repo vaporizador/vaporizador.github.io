@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Insta.io - Show</title>
+  
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+    <div class="row align-content-center">
+</div>
+  </div>
+<style type="text/css">
+  .card {
+    padding: 15px;
+    margin: 10px;
+    max-height: 400px;
+    height: 400px;
+  }
+  .card-img-top {
+    max-height: 200px;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.wp-a {
+    color: #000;
+}
+.wp-a:hover {
+    opacity: 0.9;
+    color: #000;
+    text-decoration: none;
+}
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+ $.ajax({
+  url: 'http://blog.elitesmokebr.com/wp-json/wp/v2/posts',
+  contentType: 'application/json; charset=utf-8',
+  success: function(data){
+    for( x in data ){
+
+      if(x<3) {
+      var id  = data[x].id;
+      var title  = data[x].title.rendered;
+      var link  = data[x].link;
+      var excerpt  = data[x].excerpt.rendered;
+      //console.log(excerpt);
+      var featured_media  = data[x].featured_media;
+      //var featured_media  = '';
+        var len = excerpt.length;
+        if(len>60)
+        {
+            var certo2 = excerpt.substr(0,60)+'...';
+            var certo =  certo2.replace(/(<([^>]+)>)/ig,"")
+        }
+        if(certo==null) {
+          var certo = 'Leia Mais...'
+        }
+      //console.log(certo);
+      //console.log(data[x].id);
+      //console.log(data[x].title);
+      //console.log(data[x].link);
+      //console.log(data[x].content);
+      //console.log(data[x].featured_media);
+      //$('ul').append('<li id="'+id+'"><a href="'+link+'" target="_blank"><img id="'+featured_media+'"></a><h2>'+title+'</h2><p>'+certo+'</p></li>');
+      $('.row').append('<div id="'+id+'" class="card col"><a class="wp-a" href="'+link+'"><img id="'+featured_media+'" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+certo+'</p></div></a></div>');
+   $.ajax({
+    url: 'http://blog.elitesmokebr.com/wp-json/wp/v2/media/' + data[x].featured_media + '?callback=jQuery22405526098742339247_1515789036038&_=1515789036039',
+    contentType: 'application/json; charset=utf-8',
+    type: 'GET',
+    success: function(datas) {
+      var img = datas;
+      //console.log(img.id);
+      var foto = img.guid.rendered;
+      $('img#'+img.id).attr('src', foto);
+    }
+  });
+      
+    }
+  }
+  },
+  error: function(data){
+    console.log(data);
+  }
+});
+//console.log(medias('2320'));
+
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+</body>
+</html>
