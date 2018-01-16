@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Insta.io - Show</title>
   
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
@@ -12,7 +12,8 @@
 </head>
 
 <body>
-	<div class="container">
+  <div class="container">
+    <h5 class="title align-content-center text-center"><u>ÚLTIMOS POST DO BLOG</u></h5>
     <div class="row align-content-center">
 </div>
   </div>
@@ -53,6 +54,8 @@
       var title  = data[x].title.rendered;
       var link  = data[x].link;
       var excerpt  = data[x].excerpt.rendered;
+      var date_gmt  = data[x].date_gmt;
+      var datas = date_gmt.replace("T"," - ");
       //console.log(excerpt);
       var featured_media  = data[x].featured_media;
       //var featured_media  = '';
@@ -60,7 +63,7 @@
         if(len>60)
         {
             var certo2 = excerpt.substr(0,60)+'...';
-            var certo =  certo2.replace(/(<([^>]+)>)/ig,"")
+            var certo =  certo2.replace(/(<([^>]+)>)/ig,"");
         }
         if(certo==null) {
           var certo = 'Leia Mais...'
@@ -72,7 +75,7 @@
       //console.log(data[x].content);
       //console.log(data[x].featured_media);
       //$('ul').append('<li id="'+id+'"><a href="'+link+'" target="_blank"><img id="'+featured_media+'"></a><h2>'+title+'</h2><p>'+certo+'</p></li>');
-      $('.row').append('<div id="'+id+'" class="card col"><a class="wp-a" href="'+link+'"><img id="'+featured_media+'" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+certo+'</p></div></a></div>');
+      $('.row').append('<div id="'+id+'" class="card col"><a class="wp-a" href="'+link+'"><img id="'+featured_media+'" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">'+title+'</h5><p class="card-text">'+certo+'</p></div><p class="card-text"><small class="text-muted">'+datas+'</small></p></a></div>');
    $.ajax({
     url: 'http://blog.elitesmokebr.com/wp-json/wp/v2/media/' + data[x].featured_media + '?callback=jQuery22405526098742339247_1515789036038&_=1515789036039',
     contentType: 'application/json; charset=utf-8',
